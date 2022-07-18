@@ -1,0 +1,271 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "assignment 3",
+      "provenance": [],
+      "collapsed_sections": [],
+      "authorship_tag": "ABX9TyMHXmkm+Oz8wMJ2rP/PwmBN",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/mbegum213/microcredential/blob/main/assignment_3.ipynb/python\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "1. Create a list that holds 5 data variables."
+      ],
+      "metadata": {
+        "id": "blrDYFgW4ZBJ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sweets=['chocolate','cake','ice-cream','candy','jelly']\n"
+      ],
+      "metadata": {
+        "id": "rmEelwch4moJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "2. Print out those variables by using a for loop."
+      ],
+      "metadata": {
+        "id": "B4bq0tg94Z6S"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for sweet in sweets:\n",
+        "  print(sweet)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "DbT4_-NZ4nB6",
+        "outputId": "b37cfd97-cdf6-48af-a974-6d79aa2cd197"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "chocolate\n",
+            "cake\n",
+            "ice-cream\n",
+            "candy\n",
+            "jelly\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "3. Modify your for loop to add a message to your for loop."
+      ],
+      "metadata": {
+        "id": "mE2jlhTa4b6f"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for sweet in sweets:\n",
+        "  print(sweet,'is my favorite treat.')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5aU1fxnl4oCJ",
+        "outputId": "1815a87c-c6a3-44f8-f1fe-e1f694204983"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "chocolate is my favorite treat.\n",
+            "cake is my favorite treat.\n",
+            "ice-cream is my favorite treat.\n",
+            "candy is my favorite treat.\n",
+            "jelly is my favorite treat.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "4. Use a for loop to print even numbers from 1-20."
+      ],
+      "metadata": {
+        "id": "F-tIhgTv4eVz"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for num in range(2,20,2):\n",
+        "  print(num)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RvFpytED4pOF",
+        "outputId": "f35d1cb8-d5b6-4d6e-da3a-f9023feb2d18"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2\n",
+            "4\n",
+            "6\n",
+            "8\n",
+            "10\n",
+            "12\n",
+            "14\n",
+            "16\n",
+            "18\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "5. Sort your list in alphabetic order."
+      ],
+      "metadata": {
+        "id": "41B-GewP4gUq"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sorted(sweets)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fGIXZibx4p_x",
+        "outputId": "26548a81-70ea-4cc7-e1b1-98021316586a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['cake', 'candy', 'chocolate', 'ice-cream', 'jelly']"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 12
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "6. Print out the first three elements of your list."
+      ],
+      "metadata": {
+        "id": "oHKkwUkP4iXi"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sweets[:3]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jrH90GvW4qm_",
+        "outputId": "e3976a94-429a-4c48-f4b1-d5369f8b7626"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['chocolate', 'cake', 'ice-cream']"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "7. Create a loop to print the last 2 elements of your list."
+      ],
+      "metadata": {
+        "id": "nXtwzcEA4kXt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for sweet in sweets[-2:]:\n",
+        "  print(sweet)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vXBAuvqg4sYm",
+        "outputId": "e760dbe9-4fc8-4dc2-e410-2aa8f977909c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "candy\n",
+            "jelly\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
