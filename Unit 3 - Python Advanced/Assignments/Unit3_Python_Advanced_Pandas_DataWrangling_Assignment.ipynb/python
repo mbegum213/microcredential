@@ -1,0 +1,1784 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Unit3_Python_Advanced_Pandas_DataWrangling_Assignment.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true,
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/mbegum213/microcredential/blob/main/Unit%203%20-%20Python%20Advanced/Assignments/Unit3_Python_Advanced_Pandas_DataWrangling_Assignment.ipynb/python\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "M9lK1TbaRC11"
+      },
+      "source": [
+        "# Assignment 1 : Python Data Analysis using salaries dataset"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "CHpOD5OcaO9j"
+      },
+      "source": [
+        "# Data Exploration:  This should include summary statistics, means, medians, quartiles, or any other relevant information about the data set. "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NB7kwRqMaFIA"
+      },
+      "source": [
+        "import pandas as pd \n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "%matplotlib inline"
+      ],
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "SBTN0yjtbEBP"
+      },
+      "source": [
+        "df = pd.read_csv('https://raw.githubusercontent.com/CunyLaguardiaDataAnalytics/datasets/master/Salaries.csv')"
+      ],
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "eOTZmRkCbyBY",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "0bbe27ab-db7b-4137-f424-e063a4a7f093"
+      },
+      "source": [
+        "type(df)"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "pandas.core.frame.DataFrame"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "A4UW5eOccATX",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "1b803a72-f3e5-4188-ec88-835572c055c0"
+      },
+      "source": [
+        "# 397 rows = 397 employees\n",
+        "df.shape"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(397, 7)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 6
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "IERZRhoJbYxC",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "c1dec999-4b37-464c-f537-9f98e23f65bc"
+      },
+      "source": [
+        "df.head()"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   Unnamed: 0      rank discipline  yrs.since.phd  yrs.service   sex  salary\n",
+              "0           1      Prof          B             19           18  Male  139750\n",
+              "1           2      Prof          B             20           16  Male  173200\n",
+              "2           3  AsstProf          B              4            3  Male   79750\n",
+              "3           4      Prof          B             45           39  Male  115000\n",
+              "4           5      Prof          B             40           41  Male  141500"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-a15df157-8bb9-4883-b87a-c16a00731757\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Unnamed: 0</th>\n",
+              "      <th>rank</th>\n",
+              "      <th>discipline</th>\n",
+              "      <th>yrs.since.phd</th>\n",
+              "      <th>yrs.service</th>\n",
+              "      <th>sex</th>\n",
+              "      <th>salary</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>19</td>\n",
+              "      <td>18</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>139750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>20</td>\n",
+              "      <td>16</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>173200</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3</td>\n",
+              "      <td>AsstProf</td>\n",
+              "      <td>B</td>\n",
+              "      <td>4</td>\n",
+              "      <td>3</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>79750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>45</td>\n",
+              "      <td>39</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>115000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>40</td>\n",
+              "      <td>41</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>141500</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-a15df157-8bb9-4883-b87a-c16a00731757')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-a15df157-8bb9-4883-b87a-c16a00731757 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-a15df157-8bb9-4883-b87a-c16a00731757');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "va7JVaVkbgf5",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "e3b8cd25-c4b6-4cd2-88d9-8c7c07b2f8a8"
+      },
+      "source": [
+        "df.tail()"
+      ],
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     Unnamed: 0      rank discipline  yrs.since.phd  yrs.service   sex  salary\n",
+              "392         393      Prof          A             33           30  Male  103106\n",
+              "393         394      Prof          A             31           19  Male  150564\n",
+              "394         395      Prof          A             42           25  Male  101738\n",
+              "395         396      Prof          A             25           15  Male   95329\n",
+              "396         397  AsstProf          A              8            4  Male   81035"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-8ac6ad4b-26d6-463e-b9da-a38065ebc065\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Unnamed: 0</th>\n",
+              "      <th>rank</th>\n",
+              "      <th>discipline</th>\n",
+              "      <th>yrs.since.phd</th>\n",
+              "      <th>yrs.service</th>\n",
+              "      <th>sex</th>\n",
+              "      <th>salary</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>392</th>\n",
+              "      <td>393</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>33</td>\n",
+              "      <td>30</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>103106</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>393</th>\n",
+              "      <td>394</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>31</td>\n",
+              "      <td>19</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>150564</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>394</th>\n",
+              "      <td>395</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>42</td>\n",
+              "      <td>25</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>101738</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>395</th>\n",
+              "      <td>396</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>25</td>\n",
+              "      <td>15</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>95329</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>396</th>\n",
+              "      <td>397</td>\n",
+              "      <td>AsstProf</td>\n",
+              "      <td>A</td>\n",
+              "      <td>8</td>\n",
+              "      <td>4</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>81035</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-8ac6ad4b-26d6-463e-b9da-a38065ebc065')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-8ac6ad4b-26d6-463e-b9da-a38065ebc065 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-8ac6ad4b-26d6-463e-b9da-a38065ebc065');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "nNjdIb0YbjBy",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "outputId": "31e002ab-b05b-4fad-8bfc-562212445973"
+      },
+      "source": [
+        "df.describe()"
+      ],
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       Unnamed: 0  yrs.since.phd  yrs.service         salary\n",
+              "count  397.000000     397.000000   397.000000     397.000000\n",
+              "mean   199.000000      22.314861    17.614610  113706.458438\n",
+              "std    114.748275      12.887003    13.006024   30289.038695\n",
+              "min      1.000000       1.000000     0.000000   57800.000000\n",
+              "25%    100.000000      12.000000     7.000000   91000.000000\n",
+              "50%    199.000000      21.000000    16.000000  107300.000000\n",
+              "75%    298.000000      32.000000    27.000000  134185.000000\n",
+              "max    397.000000      56.000000    60.000000  231545.000000"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-cd0a5e5f-016d-4d21-934b-c36ba7c9dbfc\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Unnamed: 0</th>\n",
+              "      <th>yrs.since.phd</th>\n",
+              "      <th>yrs.service</th>\n",
+              "      <th>salary</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>397.000000</td>\n",
+              "      <td>397.000000</td>\n",
+              "      <td>397.000000</td>\n",
+              "      <td>397.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>199.000000</td>\n",
+              "      <td>22.314861</td>\n",
+              "      <td>17.614610</td>\n",
+              "      <td>113706.458438</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>114.748275</td>\n",
+              "      <td>12.887003</td>\n",
+              "      <td>13.006024</td>\n",
+              "      <td>30289.038695</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>57800.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>100.000000</td>\n",
+              "      <td>12.000000</td>\n",
+              "      <td>7.000000</td>\n",
+              "      <td>91000.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>199.000000</td>\n",
+              "      <td>21.000000</td>\n",
+              "      <td>16.000000</td>\n",
+              "      <td>107300.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>298.000000</td>\n",
+              "      <td>32.000000</td>\n",
+              "      <td>27.000000</td>\n",
+              "      <td>134185.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>397.000000</td>\n",
+              "      <td>56.000000</td>\n",
+              "      <td>60.000000</td>\n",
+              "      <td>231545.000000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-cd0a5e5f-016d-4d21-934b-c36ba7c9dbfc')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-cd0a5e5f-016d-4d21-934b-c36ba7c9dbfc button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-cd0a5e5f-016d-4d21-934b-c36ba7c9dbfc');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "oOu2hmOQaUAG"
+      },
+      "source": [
+        "# Mean/median of all salaries"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "wgaarFV3cVM9",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "a2e78189-5c4f-4ed7-c94a-18909553aba1"
+      },
+      "source": [
+        "# Mean of all salaries\n",
+        "df['salary'].mean()"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "113706.45843828715"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "1qQDqlPlcae3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "82e95345-cb47-4d04-b9a2-a5944df19bd6"
+      },
+      "source": [
+        "# Median of all salaries\n",
+        "df['salary'].median()"
+      ],
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "107300.0"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "yCy0KrhbaV5n"
+      },
+      "source": [
+        "# Median salary between gender and/or rank(title) Etc...\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "pBNcIW03WmS2"
+      },
+      "source": [
+        "Making a new Data Frame that only has the columns 'sex' and 'salary'"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jWAVicJXc-lk"
+      },
+      "source": [
+        "new_df=df[['sex','salary']]"
+      ],
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "y3oA1K1bdH3k",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "outputId": "829e28ea-35ca-4a86-ffc2-955c82e707cc"
+      },
+      "source": [
+        "new_df.head()"
+      ],
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "    sex  salary\n",
+              "0  Male  139750\n",
+              "1  Male  173200\n",
+              "2  Male   79750\n",
+              "3  Male  115000\n",
+              "4  Male  141500"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-a54da64d-0fa2-408c-bc38-47a61616d5db\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>sex</th>\n",
+              "      <th>salary</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Male</td>\n",
+              "      <td>139750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Male</td>\n",
+              "      <td>173200</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Male</td>\n",
+              "      <td>79750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Male</td>\n",
+              "      <td>115000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Male</td>\n",
+              "      <td>141500</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-a54da64d-0fa2-408c-bc38-47a61616d5db')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-a54da64d-0fa2-408c-bc38-47a61616d5db button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-a54da64d-0fa2-408c-bc38-47a61616d5db');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6QKph0ec85Uf",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "00bf0b38-b296-489e-c059-6705a2296d04"
+      },
+      "source": [
+        "new_df.shape"
+      ],
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(397, 2)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "j6FRmL60Wxsl"
+      },
+      "source": [
+        "Finding the Median salary for all males"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ky6vVVnRdlnA",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "070b2054-56ce-426f-dc07-6e2aa35e49c8"
+      },
+      "source": [
+        "new_df[new_df['sex']=='Male']['salary'].median()"
+      ],
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "108043.0"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 21
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yqVT-hX78_qk"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "DA0YteZ78_td"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "c9qQwX7e8_v5"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "LeJTjR7IXAfs"
+      },
+      "source": [
+        "Finding the Median salary for all females"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "1oUJYrOP9Fub",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "53348ba8-62b5-4a12-ef0f-0bb921948347"
+      },
+      "source": [
+        "new_df[new_df['sex']=='Female']['salary'].median()"
+      ],
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "103750.0"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 22
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3sgja0d49Fxm"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dazbnwns9F1l"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "CxFzs0GS9F5k"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "k15C7QN_9F9h"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5Tw_igCfXWmB"
+      },
+      "source": [
+        "Comparing the Mean salary of Males and Females"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "R7TV0xtE9Ll8"
+      },
+      "source": [
+        "mean_males=new_df[new_df['sex']=='Male']['salary'].mean()"
+      ],
+      "execution_count": 30,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "aPyxwdS69LpN"
+      },
+      "source": [
+        "mean_females=new_df[new_df['sex']=='Female']['salary'].mean()"
+      ],
+      "execution_count": 31,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "xOWSRisa9LyG",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "baa05336-42ce-46df-fa42-a9a31d326dea"
+      },
+      "source": [
+        "# The difference between mean salaries of male and female\n",
+        "mean_males-mean_females"
+      ],
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "14088.008738003162"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 32
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "fufsyykZafDa"
+      },
+      "source": [
+        "# Data Wrangling – perform some basic transformations on the data"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KWpSuxybUGWK"
+      },
+      "source": [
+        "People who have 20 years of experience (Total: 157), (Mean Salary: 122,520.66)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "n5sdVrDN9S7u",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "81ebd6e3-43f0-4e82-b547-b520d7592f61"
+      },
+      "source": [
+        "sum(df['yrs.service']>=20)"
+      ],
+      "execution_count": 34,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "157"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 34
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "33ZLAyp69Ucw",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "9213ac08-a4b3-4df2-be75-4ee8412bfb60"
+      },
+      "source": [
+        "df[df['yrs.service']>=20]['salary'].mean()"
+      ],
+      "execution_count": 35,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "122520.65605095541"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 35
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "uoTGBfZr9Ufy"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "rnhjMu7qX7ao"
+      },
+      "source": [
+        "Comparing the salaries of people who have 20+ years of experience vs less than 20 years of experience"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "VLBmpIXc9gKh"
+      },
+      "source": [
+        "mean_salary_20_more=df[df['yrs.service']>=20]['salary'].mean()"
+      ],
+      "execution_count": 36,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "r5u5KyDe9gMn"
+      },
+      "source": [
+        "mean_salary_20_less=df[df['yrs.service']<20]['salary'].mean()"
+      ],
+      "execution_count": 37,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vcohgqM09gP_",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "ce089547-3012-42f2-abd8-160503c941e9"
+      },
+      "source": [
+        "mean_salary_20_more-mean_salary_20_less"
+      ],
+      "execution_count": 38,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "14580.151884288745"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 38
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "54eM4tj4V66j"
+      },
+      "source": [
+        "People who have salary of greater than or equal to 200,000"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pGOB4eEY9nwG",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "3235df7e-e8d8-483e-f731-d77737cd0c2a"
+      },
+      "source": [
+        "sum(df['salary']>=200000)"
+      ],
+      "execution_count": 39,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "3"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 39
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "K1vHeaSS9nzB"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8zwXwZF0ZbPG"
+      },
+      "source": [
+        "People who have 20 years and more experiance make on average $14580 more than those who have less than 20 years of experience.\n",
+        "\n",
+        "Only 3 people make $200,0000 or more making it an unlikely for professors to make this and more."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Omuf-X37agBG"
+      },
+      "source": [
+        "# Rename values, subset columns, etc"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6DzowXPt9vM3",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 424
+        },
+        "outputId": "a10699d1-b244-423d-b76a-5a7366810a72"
+      },
+      "source": [
+        "df.rename(columns={'Untamed: 0':\"ID\"})"
+      ],
+      "execution_count": 40,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     Unnamed: 0      rank discipline  yrs.since.phd  yrs.service   sex  salary\n",
+              "0             1      Prof          B             19           18  Male  139750\n",
+              "1             2      Prof          B             20           16  Male  173200\n",
+              "2             3  AsstProf          B              4            3  Male   79750\n",
+              "3             4      Prof          B             45           39  Male  115000\n",
+              "4             5      Prof          B             40           41  Male  141500\n",
+              "..          ...       ...        ...            ...          ...   ...     ...\n",
+              "392         393      Prof          A             33           30  Male  103106\n",
+              "393         394      Prof          A             31           19  Male  150564\n",
+              "394         395      Prof          A             42           25  Male  101738\n",
+              "395         396      Prof          A             25           15  Male   95329\n",
+              "396         397  AsstProf          A              8            4  Male   81035\n",
+              "\n",
+              "[397 rows x 7 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-11a97f19-8324-4af6-b31c-f973569798e7\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Unnamed: 0</th>\n",
+              "      <th>rank</th>\n",
+              "      <th>discipline</th>\n",
+              "      <th>yrs.since.phd</th>\n",
+              "      <th>yrs.service</th>\n",
+              "      <th>sex</th>\n",
+              "      <th>salary</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>19</td>\n",
+              "      <td>18</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>139750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>20</td>\n",
+              "      <td>16</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>173200</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3</td>\n",
+              "      <td>AsstProf</td>\n",
+              "      <td>B</td>\n",
+              "      <td>4</td>\n",
+              "      <td>3</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>79750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>45</td>\n",
+              "      <td>39</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>115000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>B</td>\n",
+              "      <td>40</td>\n",
+              "      <td>41</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>141500</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>392</th>\n",
+              "      <td>393</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>33</td>\n",
+              "      <td>30</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>103106</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>393</th>\n",
+              "      <td>394</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>31</td>\n",
+              "      <td>19</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>150564</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>394</th>\n",
+              "      <td>395</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>42</td>\n",
+              "      <td>25</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>101738</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>395</th>\n",
+              "      <td>396</td>\n",
+              "      <td>Prof</td>\n",
+              "      <td>A</td>\n",
+              "      <td>25</td>\n",
+              "      <td>15</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>95329</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>396</th>\n",
+              "      <td>397</td>\n",
+              "      <td>AsstProf</td>\n",
+              "      <td>A</td>\n",
+              "      <td>8</td>\n",
+              "      <td>4</td>\n",
+              "      <td>Male</td>\n",
+              "      <td>81035</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>397 rows × 7 columns</p>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-11a97f19-8324-4af6-b31c-f973569798e7')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-11a97f19-8324-4af6-b31c-f973569798e7 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-11a97f19-8324-4af6-b31c-f973569798e7');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 40
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "k8Dah3NK9vYR"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "aExLKbRRaiAv"
+      },
+      "source": [
+        "# Create some simple visualizations showing some simple statistics"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "JX_P5QHV92Ji",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 279
+        },
+        "outputId": "f2ddb8dd-99ca-41b4-e101-4392caebd11c"
+      },
+      "source": [
+        "df.plot(kind='scatter',x='yrs.service',y='salary')\n",
+        "plt.xlabel('Years of Services')\n",
+        "plt.ylabel('Salary')\n",
+        "plt.show()"
+      ],
+      "execution_count": 45,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 432x288 with 1 Axes>"
+            ],
+            "image/png": "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\n"
+          },
+          "metadata": {
+            "needs_background": "light"
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "S_Bu49tD92ON"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 44,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9lNOSSEV92RR"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 44,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vM_4yRvgd6h2"
+      },
+      "source": [
+        "Your observations from the visuals: \n",
+        "\n",
+        "There is a weak correlation between years of service and the salary made."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "mZoOuCUvakSc"
+      },
+      "source": [
+        "# Draw some conclusions based on the data.  What did you discover?"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "gBp8qWEDbhKH"
+      },
+      "source": [
+        "Based on the analysis performed above, the conclusions are as follows:\n",
+        "\n",
+        "Making a salary of $200,000 is unlikely as only 3 people have been able to achieve that.\n",
+        "\n",
+        "Males make $14088 more on average than a female.\n",
+        "\n",
+        "Those with 20+ years of experience make an average of $14580 more than those with less than 20 years of experience.\n",
+        "\n",
+        "And there is a weak corelation between how many years you have worked and the salary you make.\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ]
+    }
+  ]
+}
